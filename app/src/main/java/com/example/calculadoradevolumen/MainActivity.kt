@@ -36,8 +36,14 @@ class MainActivity : ComponentActivity() {
     private lateinit var radioYes: RadioButton
     private lateinit var radioNo: RadioButton
     private lateinit var additionalInput: EditText
-    private lateinit var lotInput: EditText
+        private lateinit var lotInput: EditText
 
+    //para 5 habitantes
+    private lateinit var radioGrouppoblacion: RadioGroup
+    private lateinit var porDefecto: RadioButton
+    private lateinit var agregaNuevo: RadioButton
+    private lateinit var personaXLote: EditText
+    private lateinit var habitantesInput: EditText
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,6 +122,20 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        //pregunta si 5 por defecto o desea agregar cuantos habitantes por vivienda
+        // Configuración de los RadioButton para sí o no con input adicional
+        radioGrouppoblacion = findViewById(R.id.radioGrouppoblacion)
+        porDefecto = findViewById(R.id.porDefecto)
+        agregaNuevo = findViewById(R.id.agregaNuevo)
+        personaXLote = findViewById(R.id.personaXLote)
+
+        // Mostrar/ocultar el EditText basado en la selección del RadioButton
+        radioGrouppoblacion.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.porDefecto -> personaXLote.visibility = EditText.VISIBLE
+                R.id.agregaNuevo -> personaXLote.visibility = EditText.GONE
+            }
+        }
 
         // Configurar el listener para el botón
         button.setOnClickListener {
@@ -155,6 +175,17 @@ class MainActivity : ComponentActivity() {
                 // Si se selecciona "No", usar el valor predeterminado
                 "Se ocupará por defecto 3.5%"
             }
+            //habitantes
+            // Manejar la selección del RadioGroup de "por defecto" o "No"
+            val respuestaSelectionID = radioGrouppoblacion.checkedRadioButtonId
+            val sinoSelected = findViewById<RadioButton>(respuestaSelectionID)
+            val Info = if (sinoSelected.id == R.id.porDefecto) {
+                // Si se selecciona "Sí", obtener el texto del EditText
+                personaXLote.text
+            } else {
+                // Si se selecciona "No", usar el valor predeterminado
+                "Se ocupará por defecto 5 habitantes"
+            }
 
 
 
@@ -163,7 +194,8 @@ class MainActivity : ComponentActivity() {
                     "Municipio: \t\t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                     "Información adicional: $additionalInfo\n"+
-                    "Número de Lotes: $lotNumber"
+                    "Número de Lotes: $lotNumber\n"+
+                    "Habitantes por lote: $Info\n"
 
         }
     }

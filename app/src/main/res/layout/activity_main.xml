@@ -8,28 +8,28 @@
     tools:context=".MainActivity"
     >
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="350dp"
-        android:layout_height="500dp"
+        android:layout_width="380dp"
+        android:layout_height="550dp"
         android:scrollbarSize="0dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="14dp">
 
             <TextView
                 android:id="@+id/generalDataTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:paddingBottom="8dp"
+                android:paddingBottom="5dp"
                 android:text="DATOS GENERALES"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
+                android:outlineAmbientShadowColor="@color/purple_200"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"/>
 
             <!-- TextView para "Seleccionar departamento" -->
@@ -40,7 +40,7 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:paddingBottom="8dp"
                 android:text="@string/hint_select_department"
-                android:gravity="center"
+                android:gravity=""
                 android:textSize="16sp"
                 android:layout_marginTop="16dp"
                 android:layout_below="@id/generalDataTextView"/>
@@ -51,8 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/departmentTextView"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/municipalityTextView"
@@ -60,11 +60,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spinner1"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:gravity="center"
+                android:gravity=""
                 android:paddingBottom="8dp"
                 android:text="@string/hint_select_municipality"
                 android:textSize="16sp"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="5dp"/>
 
             <Spinner
                 android:id="@+id/spinner2"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/municipalityTextView"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:enabled="false"/>
             <TextView
                 android:id="@+id/zoneTextView"
@@ -81,7 +81,7 @@
                 android:text="@string/la_zona_es_rural_o_urbana"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textSize="16sp"
-                android:gravity="center"
+                android:gravity=""
                 android:layout_marginTop="10dp"/>
 
             <!-- RadioGroup para los RadioButtons -->
@@ -89,24 +89,23 @@
                 android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
-                >
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/urbanRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Urbana"
+                    android:layout_marginEnd="90dp"
                     android:checked="true"
-                    android:layout_marginEnd="30dp"/>
+                    android:text="Urbana" />
 
                 <RadioButton
                     android:id="@+id/ruralRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rural"/>
+                    android:text="Rural" />
             </RadioGroup>
 
             <TextView
@@ -116,7 +115,7 @@
                 android:text="ingrese la tasa de crecimiento poblacional"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textSize="16sp"
-                android:gravity="center"
+                android:gravity=""
                 android:layout_marginTop="10dp"/>
             <RadioGroup
                 android:id="@+id/radioGroupYesNo"
@@ -131,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sí"
-                    android:layout_marginEnd="30dp"/>
+                    android:layout_marginEnd="120dp"/>
 
                 <RadioButton
                     android:id="@+id/radioNo"
@@ -140,6 +139,7 @@
                     android:text="No"
                     android:layout_marginStart="16dp"/>
             </RadioGroup>
+
             <EditText
                 android:id="@+id/additionalInput"
                 android:layout_width="match_parent"
@@ -148,6 +148,8 @@
                 android:layout_below="@id/radioGroupYesNo"
                 android:visibility="gone"
                 android:layout_marginTop="16dp"/>
+
+
             <TextView
                 android:id="@+id/cantidadlotes"
                 android:layout_width="match_parent"
@@ -155,15 +157,56 @@
                 android:text="¿Qué cantidad de lotes hay?"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textSize="16sp"
-                android:gravity="center"
+                android:gravity=""
                 android:layout_marginTop="10dp"/>
+
+            <!-- este radio button es para validar si la poblacion queda por defecto-->
+
             <EditText
                 android:id="@+id/lotInput"
-                android:layout_width="match_parent"
+                android:layout_width="353dp"
                 android:layout_height="wrap_content"
                 android:hint="" />
 
+            <TextView
+                android:id="@+id/personasLote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cantidad de Personas por lote (por defecto 5)"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="16sp"
+                android:gravity=""
+                android:layout_marginTop="10dp"/>
+            <RadioGroup
+                android:id="@+id/radioGrouppoblacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp">
 
+                <RadioButton
+                    android:id="@+id/porDefecto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Asignar Habitantes"
+                    android:layout_marginEnd="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/agregaNuevo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Por Defecto"
+                    android:layout_marginStart="16dp"/>
+            </RadioGroup>
+            <EditText
+                android:id="@+id/personaXLote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cuantas personas desea asignar"
+                android:layout_below="@id/radioGrouppoblacion"
+                android:visibility="gone"
+                android:layout_marginTop="16dp"/>
 
 
         </LinearLayout>
@@ -174,16 +217,16 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
-        android:text="Imprimir Selecciones"/>
+        android:layout_marginTop="30dp"
+        android:text="Imprimir Selecciones" />
 
     <TextView
         android:id="@+id/textViewSelection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
         android:paddingTop="45dp"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="16sp" />
 
 </LinearLayout>
