@@ -10,47 +10,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
         android:text="@string/hint_select_department"
-        android:textSize="16sp"
-        android:paddingBottom="8dp"/>
+        android:textSize="16sp" />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_gravity=""/>
+        android:layout_gravity=""
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hint_select_municipality"
-        android:textSize="16sp"
+        android:layout_marginTop="20dp"
         android:paddingBottom="8dp"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/hint_select_municipality"
+        android:textSize="16sp" />
 
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_gravity=""
-        android:enabled="false"/>
+        android:layout_marginTop="5dp"
+        android:enabled="false" />
     <!--este es el boton de imprimir ojo ira hasta el final-->
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
-        android:text="Imprimir Selecciones"/>
+        android:layout_marginTop="30dp"
+        android:text="Imprimir Selecciones" />
 
     <TextView
         android:id="@+id/textViewSelection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
         android:paddingTop="45dp"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="16sp" />
 
 </LinearLayout>
