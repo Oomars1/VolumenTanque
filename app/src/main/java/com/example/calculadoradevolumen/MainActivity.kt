@@ -189,7 +189,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-            // Mostrar la información en el TextView
+            // Mostrar la información en el TextView solo funciona para ello
             textViewSelection.text = "Departamento: \t $selection1\n" +
                     "Municipio: \t\t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
