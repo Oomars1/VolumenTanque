@@ -140,6 +140,7 @@ class MainActivity : ComponentActivity() {
         agregaNuevo = findViewById(R.id.agregaNuevo)
         personaXLote = findViewById(R.id.personaXLote)
 
+
 // Establecer el evento de clic para el botón de limpiar
         clearButton.setOnClickListener {
             // Restablecer los spinners de departamento y municipio
@@ -191,7 +192,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // Configurar el listener para el botón
+
         button.setOnClickListener {
             val selection1 = spinner1.selectedItem.toString()
             val selection2 = if (spinner2.isEnabled) spinner2.selectedItem.toString() else "Vacio"
@@ -230,15 +231,27 @@ class MainActivity : ComponentActivity() {
                 "Se ocupará por defecto 3.5%"
             }
             //habitantes
-            // Manejar la selección del RadioGroup de "por defecto" o "No"
+            // Manejar la selección del RadioGroup de "por defecto" o "asignas habitantes"
+            var habitantes = 0
             val respuestaSelectionID = radioGrouppoblacion.checkedRadioButtonId
             val sinoSelected = findViewById<RadioButton>(respuestaSelectionID)
             val Info = if (sinoSelected.id == R.id.porDefecto) {
                 // Si se selecciona "Sí", obtener el texto del EditText
                 personaXLote.text
+                val texto = personaXLote.text.toString()
+                val numero: Int? = texto.toIntOrNull()
+                if (numero != null) {
+                    // La conversión fue exitosa, asignar el número a habitantes
+                    habitantes = numero
+                   // println("El número de habitantes es: $habitantes")
+                } else {
+                    // La conversión falló, manejar el error
+                    println("El texto no es un número válido")
+                }
             } else {
                 // Si se selecciona "No", usar el valor predeterminado
                 "Se ocupará por defecto 5 habitantes"
+                habitantes = 5
             }
 
             val periodoDiseno = if (radioGroupPeriodoDiseno.checkedRadioButtonId == R.id.valorDiseno) {
@@ -253,14 +266,21 @@ class MainActivity : ComponentActivity() {
                 "20"
             }
 
-            // Construye el mensaje del diálogo
+
+
+            //ploblacion total del lugar
+                val poblacion = lotNumberInt * habitantes
+
+
+            // Mostrar la información en el TextView solo funciona para ello
             val message = "Departamento: \t $selection1\n" +
                     "Municipio: \t\t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                     "Información adicional: $additionalInfo\n"+
                     "Número de Lotes: $lotNumber\n"+
-                    "Habitantes por lote: $Info\n"+
-                    "Período de diseño: $periodoDiseno AÑOS\n"
+                    "Habitantes por lote: $habitantes\n"+
+                    "Período de diseño: $periodoDiseno AÑOS\n"+
+                    "Poblacion Total del lugar: $poblacion \n"
 
             // Crea el AlertDialog
             val builder = AlertDialog.Builder(this)

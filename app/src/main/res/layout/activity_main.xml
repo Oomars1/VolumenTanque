@@ -149,6 +149,9 @@
                 android:visibility="gone"
                 android:layout_marginTop="16dp"/>
 
+            <!--lotes-->
+
+
 
             <TextView
                 android:id="@+id/cantidadlotes"
@@ -159,6 +162,8 @@
                 android:textSize="16sp"
                 android:gravity=""
                 android:layout_marginTop="10dp"/>
+
+            <!--termina-->
 
             <!-- este radio button es para validar si la poblacion queda por defecto-->
 
@@ -237,7 +242,7 @@
                     android:id="@+id/porDefectoPeriodo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Por Defecto"
+                    android:text="Por Defecto (20 Anios)"
                     android:layout_marginStart="16dp"/>
             </RadioGroup>
 
