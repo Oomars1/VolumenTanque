@@ -1,6 +1,7 @@
 package com.example.calculadoradevolumen
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -23,7 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.calculadoradevolumen.ui.theme.CalculadoraDeVolumenTheme
-
+import android.content.DialogInterface
 class MainActivity : ComponentActivity() {
     private lateinit var spinnerMunicipality: Spinner
     private lateinit var textViewSelection: TextView
@@ -252,15 +253,32 @@ class MainActivity : ComponentActivity() {
                 "20"
             }
 
-
-            // Mostrar la información en el TextView solo funciona para ello
-            textViewSelection.text = "Departamento: \t $selection1\n" +
+            // Construye el mensaje del diálogo
+            val message = "Departamento: \t $selection1\n" +
                     "Municipio: \t\t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                     "Información adicional: $additionalInfo\n"+
                     "Número de Lotes: $lotNumber\n"+
                     "Habitantes por lote: $Info\n"+
                     "Período de diseño: $periodoDiseno AÑOS\n"
+
+            // Crea el AlertDialog
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Información")
+            builder.setMessage(message)
+            builder.setPositiveButton("Exportar a PDF") { dialog, which ->
+                // Aquí implementa la lógica para exportar a PDF
+                // Puedes usar bibliotecas como iText o PdfDocument para generar el PDF
+                Toast.makeText(this, "Exportando a PDF...", Toast.LENGTH_SHORT).show()
+            }
+            builder.setNegativeButton("Cerrar") { dialog, which ->
+                // Cierra el diálogo cuando se hace clic en "Cerrar"
+                dialog.dismiss()
+            }
+
+            // Muestra el diálogo
+            val dialog = builder.create()
+            dialog.show()
 
         }
     }
