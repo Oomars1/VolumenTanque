@@ -5,37 +5,170 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:scrollbarSize="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_select_department"
-        android:textSize="16sp"
-        android:paddingBottom="8dp"/>
+            <TextView
+                android:id="@+id/generalDataTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:paddingBottom="8dp"
+                android:text="DATOS GENERALES"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="16dp"
+                android:gravity="center"/>
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_gravity=""/>
+            <!-- TextView para "Seleccionar departamento" -->
+            <TextView
+                android:id="@+id/departmentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:paddingBottom="8dp"
+                android:text="@string/hint_select_department"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/generalDataTextView"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_select_municipality"
-        android:textSize="16sp"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="20dp"/>
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/departmentTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"/>
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_gravity=""
-        android:enabled="false"/>
+            <TextView
+                android:id="@+id/municipalityTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinner1"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="@string/hint_select_municipality"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"/>
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/municipalityTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:enabled="false"/>
+            <TextView
+                android:id="@+id/zoneTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/la_zona_es_rural_o_urbana"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
+
+            <!-- RadioGroup para los RadioButtons -->
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                >
+
+                <RadioButton
+                    android:id="@+id/urbanRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Urbana"
+                    android:checked="true"
+                    android:layout_marginEnd="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/ruralRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rural"/>
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tazacrecimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ingrese la tasa de crecimiento poblacional"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
+            <RadioGroup
+                android:id="@+id/radioGroupYesNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp">
+
+                <RadioButton
+                    android:id="@+id/radioYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sí"
+                    android:layout_marginEnd="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/radioNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:layout_marginStart="16dp"/>
+            </RadioGroup>
+            <EditText
+                android:id="@+id/additionalInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese más información"
+                android:layout_below="@id/radioGroupYesNo"
+                android:visibility="gone"
+                android:layout_marginTop="16dp"/>
+            <TextView
+                android:id="@+id/cantidadlotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Qué cantidad de lotes hay?"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/lotInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="" />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
     <!--este es el boton de imprimir ojo ira hasta el final-->
     <Button
         android:id="@+id/button"

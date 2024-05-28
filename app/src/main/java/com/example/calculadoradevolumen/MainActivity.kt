@@ -7,6 +7,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +27,16 @@ import com.example.calculadoradevolumen.ui.theme.CalculadoraDeVolumenTheme
 class MainActivity : ComponentActivity() {
     private lateinit var spinnerMunicipality: Spinner
     private lateinit var textViewSelection: TextView
+    private lateinit var radioGroup: RadioGroup
+
+
+
+    // Para el botón que aparece si o no
+    private lateinit var radioGroupYesNo: RadioGroup
+    private lateinit var radioYes: RadioButton
+    private lateinit var radioNo: RadioButton
+    private lateinit var additionalInput: EditText
+    private lateinit var lotInput: EditText
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +48,8 @@ class MainActivity : ComponentActivity() {
         spinnerMunicipality = spinner2
         val button: Button = findViewById(R.id.button)
         textViewSelection = findViewById(R.id.textViewSelection)
+        radioGroup = findViewById(R.id.radioGroup)
+        lotInput = findViewById(R.id.lotInput)
 
         // Datos para el primer spinner
         val options1 = arrayOf("Selecciona una opción", "Santa Ana", "Ahuachapan", "Sonsonate")
@@ -88,16 +102,72 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        // Configuración de los RadioButton para sí o no con input adicional
+        radioGroupYesNo = findViewById(R.id.radioGroupYesNo)
+        radioYes = findViewById(R.id.radioYes)
+        radioNo = findViewById(R.id.radioNo)
+        additionalInput = findViewById(R.id.additionalInput)
+
+        // Mostrar/ocultar el EditText basado en la selección del RadioButton
+        radioGroupYesNo.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radioYes -> additionalInput.visibility = EditText.VISIBLE
+                R.id.radioNo -> additionalInput.visibility = EditText.GONE
+            }
+        }
+
+
         // Configurar el listener para el botón
         button.setOnClickListener {
             val selection1 = spinner1.selectedItem.toString()
             val selection2 = if (spinner2.isEnabled) spinner2.selectedItem.toString() else "Vacio"
+            val radioButtonID = radioGroup.checkedRadioButtonId
 
-            textViewSelection.text = "Departamento: \t $selection1\nMunicipio: \t\t\t\t\t\t $selection2"
+            val radioButtonSelected = findViewById<RadioButton>(radioButtonID)
+            val consumptionText = when (radioButtonSelected.text.toString().toLowerCase()) {
+                "rural" -> "80 l/p/d"
+                "urbana" -> "220 l/p/d"
+                else -> "Consumo desconocido"
+            }
+            // Verificar si el campo de lotes está vacío
+            val lotNumber = lotInput.text.toString().trim()
+            if (lotNumber.isEmpty()) {
+                // Mostrar un mensaje de error si el campo de lotes está vacío
+                Toast.makeText(this, "Por favor, ingrese la cantidad de lotes.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener  // Salir del listener sin continuar
+            }
+
+            // Verificar si el número de lotes es un entero positivo
+            val lotNumberInt = lotNumber.toIntOrNull()
+            if (lotNumberInt == null || lotNumberInt <= 0) {
+                // Mostrar un mensaje de error si el número de lotes no es válido
+                Toast.makeText(this, "Por favor, ingrese un número de lotes válido (mayor que cero).", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener  // Salir del listener sin continuar
+            }
+
+            // Manejar la selección del RadioGroup de "Sí" o "No"
+            val yesNoSelectionID = radioGroupYesNo.checkedRadioButtonId
+            val yesNoSelected = findViewById<RadioButton>(yesNoSelectionID)
+            val additionalInfo = if (yesNoSelected.id == R.id.radioYes) {
+                // Si se selecciona "Sí", obtener el texto del EditText
+                additionalInput.text
+            } else {
+                // Si se selecciona "No", usar el valor predeterminado
+                "Se ocupará por defecto 3.5%"
+            }
+
+
+
+            // Mostrar la información en el TextView
+            textViewSelection.text = "Departamento: \t $selection1\n" +
+                    "Municipio: \t\t\t\t\t\t $selection2\n" +
+                    "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
+                    "Información adicional: $additionalInfo\n"+
+                    "Número de Lotes: $lotNumber"
+
         }
     }
 }
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
