@@ -43,7 +43,15 @@ class MainActivity : ComponentActivity() {
     private lateinit var porDefecto: RadioButton
     private lateinit var agregaNuevo: RadioButton
     private lateinit var personaXLote: EditText
+
     private lateinit var habitantesInput: EditText
+
+    //PARA LO DE PERIODO DE DISENO
+    private lateinit var radioGroupPeriodoDiseno: RadioGroup
+    private lateinit var valorDiseno: RadioButton
+    private lateinit var porDefectoPeriodo: RadioButton
+    private lateinit var inputPeriodoDiseno: EditText
+    private lateinit var clearButton: Button
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +64,7 @@ class MainActivity : ComponentActivity() {
         textViewSelection = findViewById(R.id.textViewSelection)
         radioGroup = findViewById(R.id.radioGroup)
         lotInput = findViewById(R.id.lotInput)
+        clearButton = findViewById(R.id.clearButton)
 
         // Datos para el primer spinner
         val options1 = arrayOf("Selecciona una opción", "Santa Ana", "Ahuachapan", "Sonsonate")
@@ -102,6 +111,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
+
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // No hacer nada si no se selecciona nada
                 spinner2.isEnabled = false
@@ -128,6 +138,49 @@ class MainActivity : ComponentActivity() {
         porDefecto = findViewById(R.id.porDefecto)
         agregaNuevo = findViewById(R.id.agregaNuevo)
         personaXLote = findViewById(R.id.personaXLote)
+
+// Establecer el evento de clic para el botón de limpiar
+        clearButton.setOnClickListener {
+            // Restablecer los spinners de departamento y municipio
+            spinner1.setSelection(0)
+            spinnerMunicipality.adapter = null  // Esto desactivará el segundo spinner hasta que el primero sea nuevamente seleccionado
+
+            // Limpiar y restablecer los campos de entrada de texto para lotes y periodo de diseño
+            lotInput.text.clear()
+            personaXLote.text.clear()
+            inputPeriodoDiseno.text.clear()
+
+            // Limpiar la selección de los RadioButtons
+            radioGroup.clearCheck()
+            radioGroupYesNo.clearCheck()
+            radioGrouppoblacion.clearCheck()
+            radioGroupPeriodoDiseno.clearCheck()
+            // Ocultar los EditTexts asociados con las selecciones de RadioButtons
+            additionalInput.visibility = View.GONE
+            personaXLote.visibility = View.GONE
+            inputPeriodoDiseno.visibility = View.GONE
+
+            // Limpia el TextView de la ventana de resultados
+            textViewSelection.text = ""
+            // Mostrar un mensaje de confirmación, opcional
+            Toast.makeText(this, "Los campos y selecciones han sido limpiados", Toast.LENGTH_SHORT).show()
+        }
+
+
+
+
+        // Configuración del período de diseño
+        radioGroupPeriodoDiseno = findViewById(R.id.radioGroupPeriodoDiseno)
+        valorDiseno = findViewById(R.id.valorDiseno)
+        porDefectoPeriodo = findViewById(R.id.porDefectoPeriodo)
+        inputPeriodoDiseno = findViewById(R.id.inputPeriodoDiseno)
+
+        radioGroupPeriodoDiseno.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.valorDiseno -> inputPeriodoDiseno.visibility = EditText.VISIBLE
+                R.id.porDefectoPeriodo -> inputPeriodoDiseno.visibility = EditText.GONE
+            }
+        }
 
         // Mostrar/ocultar el EditText basado en la selección del RadioButton
         radioGrouppoblacion.setOnCheckedChangeListener { group, checkedId ->
@@ -187,6 +240,17 @@ class MainActivity : ComponentActivity() {
                 "Se ocupará por defecto 5 habitantes"
             }
 
+            val periodoDiseno = if (radioGroupPeriodoDiseno.checkedRadioButtonId == R.id.valorDiseno) {
+                val inputPeriodoDisenoText = inputPeriodoDiseno.text.toString().trim()
+                val periodoDisenoInt = inputPeriodoDisenoText.toIntOrNull()
+                if (periodoDisenoInt == null || periodoDisenoInt <= 1) {
+                    Toast.makeText(this, "Por favor, ingrese un período de diseño válido (mayor que uno).", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                periodoDisenoInt.toString()
+            } else {
+                "20"
+            }
 
 
             // Mostrar la información en el TextView solo funciona para ello
@@ -195,7 +259,8 @@ class MainActivity : ComponentActivity() {
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                     "Información adicional: $additionalInfo\n"+
                     "Número de Lotes: $lotNumber\n"+
-                    "Habitantes por lote: $Info\n"
+                    "Habitantes por lote: $Info\n"+
+                    "Período de diseño: $periodoDiseno AÑOS\n"
 
         }
     }

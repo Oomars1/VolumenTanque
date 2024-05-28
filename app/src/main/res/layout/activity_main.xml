@@ -208,25 +208,85 @@
                 android:visibility="gone"
                 android:layout_marginTop="16dp"/>
 
+            <TextView
+                android:id="@+id/periodoDisenoTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Período de Diseño"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="16sp"
+                android:gravity=""
+                android:layout_marginTop="10dp"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroupPeriodoDiseno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp">
+
+                <RadioButton
+                    android:id="@+id/valorDiseno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresar Valor"
+                    android:layout_marginEnd="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/porDefectoPeriodo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Por Defecto"
+                    android:layout_marginStart="16dp"/>
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/inputPeriodoDiseno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese el período de diseño"
+                android:layout_below="@id/radioGroupPeriodoDiseno"
+                android:visibility="gone"
+                android:layout_marginTop="16dp"/>
+
 
         </LinearLayout>
     </ScrollView>
 
     <!--este es el boton de imprimir ojo ira hasta el final-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp">
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
         android:text="Imprimir Selecciones" />
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Limpiar"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"/>
 
+    </LinearLayout>
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:paddingTop="45dp">
     <TextView
         android:id="@+id/textViewSelection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="45dp"
         android:textSize="16sp" />
 
+</ScrollView>
 </LinearLayout>
