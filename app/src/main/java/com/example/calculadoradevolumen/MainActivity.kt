@@ -25,6 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.calculadoradevolumen.ui.theme.CalculadoraDeVolumenTheme
 import android.content.DialogInterface
+import kotlin.math.ceil
+import kotlin.math.exp
+import kotlin.math.pow
+import kotlin.math.round
+
 class MainActivity : ComponentActivity() {
     private lateinit var spinnerMunicipality: Spinner
     private lateinit var textViewSelection: TextView
@@ -198,12 +203,17 @@ class MainActivity : ComponentActivity() {
             val selection2 = if (spinner2.isEnabled) spinner2.selectedItem.toString() else "Vacio"
             val radioButtonID = radioGroup.checkedRadioButtonId
 
+            var ubicacion=0
             val radioButtonSelected = findViewById<RadioButton>(radioButtonID)
             val consumptionText = when (radioButtonSelected.text.toString().toLowerCase()) {
-                "rural" -> "80 l/p/d"
-                "urbana" -> "220 l/p/d"
+                "rural" -> "80"
+                "urbana" -> "220"
                 else -> "Consumo desconocido"
             }
+
+            //este se utilizo para sacar la l/p/d
+            ubicacion = consumptionText.toInt()
+
             // Verificar si el campo de lotes está vacío
             val lotNumber = lotInput.text.toString().trim()
             if (lotNumber.isEmpty()) {
@@ -221,14 +231,26 @@ class MainActivity : ComponentActivity() {
             }
 
             // Manejar la selección del RadioGroup de "Sí" o "No"
+            var tazaCrecimiento =0f
             val yesNoSelectionID = radioGroupYesNo.checkedRadioButtonId
             val yesNoSelected = findViewById<RadioButton>(yesNoSelectionID)
             val additionalInfo = if (yesNoSelected.id == R.id.radioYes) {
                 // Si se selecciona "Sí", obtener el texto del EditText
                 additionalInput.text
+                val texto = additionalInput.text.toString()
+                val numero: Float? = texto.toFloatOrNull()
+                if (numero != null) {
+                    // La conversión fue exitosa, asignar el número a habitantes
+                    tazaCrecimiento = numero
+                    // println("El número de habitantes es: $habitantes")
+                } else {
+                    // La conversión falló, manejar el error
+                    println("El texto no es un número válido")
+                }
             } else {
                 // Si se selecciona "No", usar el valor predeterminado
-                "Se ocupará por defecto 3.5%"
+                tazaCrecimiento = 3.5f
+
             }
             //habitantes
             // Manejar la selección del RadioGroup de "por defecto" o "asignas habitantes"
@@ -250,39 +272,75 @@ class MainActivity : ComponentActivity() {
                 }
             } else {
                 // Si se selecciona "No", usar el valor predeterminado
-                "Se ocupará por defecto 5 habitantes"
+
                 habitantes = 5
             }
-
+            var periodoDisenio =0
             val periodoDiseno = if (radioGroupPeriodoDiseno.checkedRadioButtonId == R.id.valorDiseno) {
                 val inputPeriodoDisenoText = inputPeriodoDiseno.text.toString().trim()
                 val periodoDisenoInt = inputPeriodoDisenoText.toIntOrNull()
+                val numero: Int? = inputPeriodoDisenoText.toIntOrNull()
                 if (periodoDisenoInt == null || periodoDisenoInt <= 1) {
+                    if (numero != null) {
+                        // La conversión fue exitosa, asignar el número a habitantes
+                        periodoDisenio = numero
+                        // println("El número de habitantes es: $habitantes")
+                    } else {
+                        // La conversión falló, manejar el error
+                        println("El texto no es un número válido")
+                    }
                     Toast.makeText(this, "Por favor, ingrese un período de diseño válido (mayor que uno).", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 periodoDisenoInt.toString()
             } else {
-                "20"
+                periodoDisenio = 20
             }
-
-
-
             //ploblacion total del lugar
                 val poblacion = lotNumberInt * habitantes
+
+            //Poblacion futura del lugar
+            val resultado = if (poblacion < 10000) {
+                ceil(poblacion * (1 + tazaCrecimiento / 100).pow(periodoDisenio))
+            } else {
+                ceil(poblacion * exp(periodoDisenio * (tazaCrecimiento / 100)))
+            }
+            //cuadro de variaciones
+            var qMedioDiario = 0.0f
+            qMedioDiario = (resultado*ubicacion)/86400
+            val qMedioDiarioFormateado = String.format("%.2f", qMedioDiario)
+            var k1 = 1.2f
+            var k2 = 2.4f
+            var k3 = 0.3f
+            var qMaxDiario = qMedioDiario * k1
+            val qMaxDiarioFormateado = String.format("%.2f", qMaxDiario)
+            var qMaxHorario = qMedioDiario * k2
+            val qMaxHorarioFormateado = String.format("%.2f", qMaxHorario)
+            var qMinhorario = qMedioDiario * k3
+            val qMinHorarioFormateado = String.format("%.2f", qMinhorario)
 
 
             // Mostrar la información en el TextView solo funciona para ello
             val message = "Departamento: \t $selection1\n" +
                     "Municipio: \t\t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
-                    "Información adicional: $additionalInfo\n"+
+                    "Taza de Crecimiento: $tazaCrecimiento\n"+
                     "Número de Lotes: $lotNumber\n"+
                     "Habitantes por lote: $habitantes\n"+
-                    "Período de diseño: $periodoDiseno AÑOS\n"+
-                    "Poblacion Total del lugar: $poblacion \n"
+                    "Período de diseño: $periodoDisenio AÑOS\n"+
+                    "Poblacion Total del lugar: $poblacion \n"+
+                    "Poblacion futura del lugar: $resultado\n" +
+                    "\n" +
+                    "\t\t\t\tVARIACIONES DE CONSUMO \n\t\t\tPARA POBLACION DE DISEÑO\n" +
+                    "------------------------------------------------------------------\n" +
+                    "| \t\t\t  Tipo \t\t\t   | K   | Factor | Cantidad |\n" +
+                    "------------------------------------------------------------------\n" +
+                    "|QmedioDiario|   \t\t\t| $qMedioDiarioFormateado  | lts/s     |\n" +
+                    "|QmaxDiario    | K1  | 1.2    | $qMaxDiarioFormateado      | lts/s|\n" +
+                    "|QmaxHorario | K2  | 2.4    | $qMaxHorarioFormateado   | lts/s|\n" +
+                    "|QminHorario  | K3  | 0.3    | $qMinHorarioFormateado      | lts/s|\n" +
+                    "-------------------------------------------------------------------\n"
 
-            // Crea el AlertDialog
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Información")
             builder.setMessage(message)
@@ -296,7 +354,6 @@ class MainActivity : ComponentActivity() {
                 dialog.dismiss()
             }
 
-            // Muestra el diálogo
             val dialog = builder.create()
             dialog.show()
 

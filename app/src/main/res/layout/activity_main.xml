@@ -9,7 +9,7 @@
     >
     <ScrollView
         android:layout_width="380dp"
-        android:layout_height="550dp"
+        android:layout_height="650dp"
         android:scrollbarSize="0dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -255,6 +255,9 @@
                 android:visibility="gone"
                 android:layout_marginTop="16dp"/>
 
+            <!-- Encabezado de la tabla comienza
+
+             termina-->
 
         </LinearLayout>
     </ScrollView>
@@ -265,33 +268,39 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="14dp">
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:text="Imprimir Selecciones" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="165dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:text="Imprimir Selecciones" />
+
         <Button
             android:id="@+id/clearButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Limpiar"
+            android:layout_width="165dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="Limpiar" />
+
+
 
     </LinearLayout>
     <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:paddingTop="45dp">
+    android:paddingTop="65dp">
     <TextView
         android:id="@+id/textViewSelection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp" />
+
+
 
 </ScrollView>
 </LinearLayout>
