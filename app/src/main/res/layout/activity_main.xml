@@ -7,10 +7,13 @@
     android:padding="16dp"
     tools:context=".MainActivity"
     >
+
+    <!--este es el boton de imprimir ojo ira hasta el final-->
     <ScrollView
         android:layout_width="380dp"
-        android:layout_height="650dp"
+        android:layout_height="720dp"
         android:scrollbarSize="0dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,29 +24,29 @@
                 android:id="@+id/generalDataTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:paddingBottom="5dp"
-                android:text="DATOS GENERALES"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:outlineAmbientShadowColor="@color/purple_200"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
-                android:gravity="center"/>
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:outlineAmbientShadowColor="@color/purple_200"
+                android:paddingBottom="5dp"
+                android:text="DATOS GENERALES"
+                android:textAllCaps="true"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <!-- TextView para "Seleccionar departamento" -->
             <TextView
                 android:id="@+id/departmentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/generalDataTextView"
+                android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-condensed-medium"
+                android:gravity=""
                 android:paddingBottom="8dp"
                 android:text="@string/hint_select_department"
-                android:gravity=""
-                android:textSize="16sp"
-                android:layout_marginTop="16dp"
-                android:layout_below="@id/generalDataTextView"/>
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/spinner1"
@@ -52,19 +55,19 @@
                 android:layout_below="@id/departmentTextView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:id="@+id/municipalityTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spinner1"
+                android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:gravity=""
                 android:paddingBottom="8dp"
                 android:text="@string/hint_select_municipality"
-                android:textSize="16sp"
-                android:layout_marginTop="5dp"/>
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/spinner2"
@@ -73,16 +76,17 @@
                 android:layout_below="@id/municipalityTextView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:enabled="false"/>
+                android:enabled="false" />
+
             <TextView
                 android:id="@+id/zoneTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/la_zona_es_rural_o_urbana"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:textSize="16sp"
                 android:gravity=""
-                android:layout_marginTop="10dp"/>
+                android:text="@string/la_zona_es_rural_o_urbana"
+                android:textSize="15sp" />
 
             <!-- RadioGroup para los RadioButtons -->
             <RadioGroup
@@ -112,56 +116,56 @@
                 android:id="@+id/tazacrecimiento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ingrese la tasa de crecimiento poblacional"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:textSize="16sp"
                 android:gravity=""
-                android:layout_marginTop="10dp"/>
+                android:text="Ingrese la tasa de crecimiento poblacional"
+                android:textSize="15sp" />
+
             <RadioGroup
                 android:id="@+id/radioGroupYesNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/radioYes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sí"
-                    android:layout_marginEnd="115dp"/>
+                    android:layout_marginEnd="115dp"
+                    android:text="Sí" />
 
                 <RadioButton
                     android:id="@+id/radioNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No"
-                    android:layout_marginStart="0dp"/>
+                    android:layout_marginStart="0dp"
+                    android:text="No" />
             </RadioGroup>
 
             <EditText
                 android:id="@+id/additionalInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ingrese más información"
                 android:layout_below="@id/radioGroupYesNo"
-                android:visibility="gone"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:hint="Ingrese la taza"
+                android:visibility="gone" />
 
             <!--lotes-->
-
 
 
             <TextView
                 android:id="@+id/cantidadlotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Qué cantidad de lotes hay?"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:textSize="16sp"
                 android:gravity=""
-                android:layout_marginTop="10dp"/>
+                android:text="¿Qué cantidad de lotes hay?"
+                android:textSize="15sp" />
 
             <!--termina-->
 
@@ -175,74 +179,76 @@
 
             <TextView
                 android:id="@+id/personasLote"
-                android:layout_width="match_parent"
+                android:layout_width="326dp"
                 android:layout_height="wrap_content"
-                android:text="Cantidad de Personas por lote (por defecto 5)"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:textSize="16sp"
                 android:gravity=""
-                android:layout_marginTop="10dp"/>
+                android:text="Cantidad de Personas por lote (por defecto 5)"
+                android:textSize="15sp" />
+
             <RadioGroup
                 android:id="@+id/radioGrouppoblacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/porDefecto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Asignar Habitantes"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    android:text="Asignar Habitantes" />
 
                 <RadioButton
                     android:id="@+id/agregaNuevo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Por Defecto"
-                    android:layout_marginStart="16dp"/>
+                    android:layout_marginStart="16dp"
+                    android:text="Por Defecto" />
             </RadioGroup>
+
             <EditText
                 android:id="@+id/personaXLote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Cuantas personas desea asignar"
                 android:layout_below="@id/radioGrouppoblacion"
-                android:visibility="gone"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:hint="Cuantas personas desea asignar"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/periodoDisenoTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Período de Diseño (años)"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:textSize="16sp"
                 android:gravity=""
-                android:layout_marginTop="10dp"/>
+                android:text="Período de Diseño (Años)"
+                android:textSize="15sp" />
 
             <RadioGroup
                 android:id="@+id/radioGroupPeriodoDiseno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/valorDiseno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ingresar Valor"
-                    android:layout_marginEnd="30dp"/>
+                    android:layout_marginEnd="30dp"
+                    android:text="Ingresar Años" />
 
                 <RadioButton
                     android:id="@+id/porDefectoPeriodo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Por Defecto (20)"/>
+                    android:text="Por Defecto (20)" />
 
 
             </RadioGroup>
@@ -251,10 +257,10 @@
                 android:id="@+id/inputPeriodoDiseno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ingrese el período de diseño"
                 android:layout_below="@id/radioGroupPeriodoDiseno"
-                android:visibility="gone"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:hint="Ingrese el período de diseño"
+                android:visibility="gone" />
 
             <!-- Encabezado de la tabla comienza
 
@@ -263,7 +269,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!--este es el boton de imprimir ojo ira hasta el final-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -290,7 +295,6 @@
 
 
     </LinearLayout>
-    
         <TextView
             android:id="@+id/textViewSelection"
             android:layout_width="match_parent"

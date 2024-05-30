@@ -26,9 +26,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.calculadoradevolumen.ui.theme.CalculadoraDeVolumenTheme
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlin.math.PI
 import kotlin.math.ceil
 import kotlin.math.exp
 import kotlin.math.pow
+
 
 
 class MainActivity : ComponentActivity() {
@@ -62,7 +64,6 @@ class MainActivity : ComponentActivity() {
     private val CREATE_FILE_REQUEST_CODE = 101
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -100,12 +101,9 @@ class MainActivity : ComponentActivity() {
         spinner1.adapter = adapter1
 
         // Datos para el segundo spinner
-        val options2 = arrayOf("Santa Ana Centro", "Santa Ana Norte", "Santa Ana Este", "Santa Ana Oeste", "Metapan")
-        val options3 = arrayOf("Ahuachapan", "Atiquizaya", "Apaneca", "Concepcion Ataco", "El Refugio")
-        val options4 = arrayOf("Nahuizalco", "Juayua", "Salcoatitan")
 
 
-// Datos para los municipios de cada departamento
+        // Datos para los municipios de cada departamento
         val municipiosMap = mapOf(
             "Ahuachapán" to arrayOf("Selecciona una opción", "Ahuachapán", "Atiquizaya", "Apaneca", "Concepción de Ataco", "El Refugio", "Guaymango", "Jujutla", "San Francisco Menéndez", "San Lorenzo", "San Pedro Puxtla", "Tacuba", "Turín"),
             "Cabañas" to arrayOf("Selecciona una opción", "Sensuntepeque", "Cinquera", "Dolores", "Guacotecti", "Ilobasco", "Jutiapa", "San Isidro", "Tejutepeque", "Victoria"),
@@ -123,7 +121,7 @@ class MainActivity : ComponentActivity() {
             "Usulután" to arrayOf("Selecciona una opción", "Usulután", "Alegría", "Berlín", "California", "Concepción Batres", "El Triunfo", "Ereguayquín", "Estanzuelas", "Jiquilisco", "Jucuapa", "Jucuarán", "Mercedes Umaña", "Nueva Granada", "Ozatlán", "Puerto El Triunfo", "San Agustín", "San Buenaventura", "San Dionisio", "San Francisco Javier", "Santa Elena", "Santa María", "Santiago de María", "Tecapán")
         )
 
-// Configurar el listener para el primer spinner
+        // Configurar el listener para el primer spinner
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val departamentoSeleccionado = options1[position]
@@ -139,8 +137,6 @@ class MainActivity : ComponentActivity() {
                 spinner2.isEnabled = false
             }
         }
-
-
 
 
         // Configuración de los RadioButton para sí o no con input adicional
@@ -339,8 +335,60 @@ class MainActivity : ComponentActivity() {
             var qMinhorario = qMedioDiario * k3
             val qMinHorarioFormateado = String.format("%.2f", qMinhorario)
             // Mostrar la información en el TextView solo funciona para ello
+
+            //horas de duracion
+            var horasDeAduccion = 20.0
+            var fijoDeFormula = 24.0
+            var cedimento = 0.1
+            var rebose = 0.4
+            //volumen 1
+            var volumenUno: Double = (qMaxDiarioFormateado.toDouble() * resultado.toDouble())/1000
+            val volumenUnoFormatted = String.format("%.2f", volumenUno)
+            var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*resultado.toDouble())/1000 + cedimento + rebose
+            val volumenDosFormatted = String.format("%.2f", volumenDos)
+
+            //Volumen total
+            var volumenIncendio = 90
+            // Evaluar la condición y calcular la suma correspondiente
+            val suma = if (volumenUno >= volumenDos) {
+                volumenUno + volumenIncendio
+            } else {
+                volumenDos + volumenIncendio
+            }
+
+            // Redondear al entero más cercano hacia arriba
+            val volumenTotal = ceil(suma).toInt()
+
+            // Paso 1: Dividir I24 por PI
+            val division = volumenTotal / PI
+
+            // Paso 2: Elevar a la potencia de 1/3 (calcular raíz cúbica)
+            val potencia = division.pow(1.0 / 3.0)
+
+            // Paso 3: Redondear hacia arriba al entero más cercano
+            val resultadoHcilindro = ceil(potencia).toDouble()
+
+            //para D
+            val resuldadoDcilindro = resultadoHcilindro * 2
+
+            //Volumen total del tanque
+            // Paso 1: Calcular (1/4) * PI
+            val factor = (1.0 / 4.0) * PI
+
+            // Paso 2: Multiplicar el factor por M21
+            val intermedio = factor * resultadoHcilindro
+
+            // Paso 3: Elevar M22 al cuadrado
+            val potenciaTanque = resuldadoDcilindro.pow(2)
+
+            // Paso 4: Multiplicar el resultado intermedio por M22^2
+            val resultadoTanque = intermedio * potenciaTanque
+
+            // Paso 5: Redondear hacia arriba al entero más cercano
+            val resultadoFinal = ceil(resultadoTanque).toInt()
+
             val message = "Departamento: \t $selection1\n" +
-                    "Municipio: \t\t\t\t\t\t $selection2\n" +
+                    "Municipio: \t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                     "Taza de Crecimiento: $tazaCrecimiento\n" +
                     "Número de Lotes: $lotNumber\n" +
@@ -357,7 +405,18 @@ class MainActivity : ComponentActivity() {
                     "|QmaxDiario    | K1  | 1.2    | $qMaxDiarioFormateado      | lts/s|\n" +
                     "|QmaxHorario | K2  | 2.4    | $qMaxHorarioFormateado   | lts/s|\n" +
                     "|QminHorario  | K3  | 0.3    | $qMinHorarioFormateado      | lts/s|\n" +
-                    "-------------------------------------------------------------------\n"
+                    "-------------------------------------------------------------------\n" +
+                    "Horas de aduccion 20 por defecto \n"+
+                    "Volumen 1: $volumenUnoFormatted M3\n"+
+                    "Volumen 2: $volumenDosFormatted M3\n"+
+                    "Volumen Incendio: $volumenIncendio M3\n"+
+                    "Volumen Total: $volumenTotal M3\n"+
+                    "Cilindro H: $resultadoHcilindro M3\n"+
+                    "Cilindro D: $resuldadoDcilindro M3\n"+
+                    "Volumen Total De Tanque: $resultadoFinal M3\n"
+
+
+
 
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Información")
@@ -373,13 +432,13 @@ class MainActivity : ComponentActivity() {
 
 
                 val pdfContent = "Departamento: \t $selection1\n" +
-                        "Municipio: \t\t\t\t\t\t $selection2\n" +
+                        "Municipio: \t\t\t\t\t $selection2\n" +
                         "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
-                        "Taza de Crecimiento: $tazaCrecimiento\n"+
-                        "Número de Lotes: $lotNumber\n"+
-                        "Habitantes por lote: $habitantes\n"+
-                        "Período de diseño: $periodoDisenio AÑOS\n"+
-                        "Poblacion Total del lugar: $poblacion \n"+
+                        "Taza de Crecimiento: $tazaCrecimiento\n" +
+                        "Número de Lotes: $lotNumber\n" +
+                        "Habitantes por lote: $habitantes\n" +
+                        "Período de diseño: $periodoDisenio AÑOS\n" +
+                        "Poblacion Total del lugar: $poblacion \n" +
                         "Poblacion futura del lugar: $resultado\n" +
                         "\n" +
                         "\t\t\t\tVARIACIONES DE CONSUMO \n\t\t\tPARA POBLACION DE DISEÑO\n" +
@@ -390,7 +449,15 @@ class MainActivity : ComponentActivity() {
                         "|QmaxDiario    | K1  | 1.2    | $qMaxDiarioFormateado      | lts/s|\n" +
                         "|QmaxHorario | K2  | 2.4    | $qMaxHorarioFormateado   | lts/s|\n" +
                         "|QminHorario  | K3  | 0.3    | $qMinHorarioFormateado      | lts/s|\n" +
-                        "-------------------------------------------------------------------\n"
+                        "-------------------------------------------------------------------\n" +
+                        "Horas de aduccion 20 por defecto \n"+
+                        "Volumen 1: $volumenUnoFormatted M3\n"+
+                        "Volumen 2: $volumenDosFormatted M3\n"+
+                        "Volumen Incendio: $volumenIncendio M3\n"+
+                        "Volumen Total: $volumenTotal M3\n"+
+                        "Cilindro H: $resultadoHcilindro M3\n"+
+                        "Cilindro D: $resuldadoDcilindro M3\n"+
+                        "Volumen Total De Tanque: $resultadoFinal M3\n"
 
 
                 textViewSelection.text = "$text\n\n$pdfContent"
@@ -410,14 +477,6 @@ class MainActivity : ComponentActivity() {
 
             val dialog = builder.create()
             dialog.show()
-
-
-
-
-
-
-
-
 
         }
     }
@@ -466,10 +525,6 @@ class MainActivity : ComponentActivity() {
         }
     }
     }
-
-
-
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
