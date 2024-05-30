@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
         val spinner2: Spinner = findViewById(R.id.spinner2)
         spinnerMunicipality = spinner2
         val button: Button = findViewById(R.id.button)
-        //textViewSelection = findViewById(R.id.textViewSelection)
+        textViewSelection = findViewById(R.id.textViewSelection)
         radioGroup = findViewById(R.id.radioGroup)
         lotInput = findViewById(R.id.lotInput)
         clearButton = findViewById(R.id.clearButton)
@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
         spinner1.adapter = adapter1
 
         // Datos para el segundo spinner
-        
+
 
         // Datos para los municipios de cada departamento
         val municipiosMap = mapOf(
