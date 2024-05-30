@@ -388,7 +388,7 @@ class MainActivity : ComponentActivity() {
             val resultadoFinal = ceil(resultadoTanque).toInt()
 
             val message = "Departamento: \t $selection1\n" +
-                    "Municipio: \t\t\t\t\t\t $selection2\n" +
+                    "Municipio: \t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                     "Taza de Crecimiento: $tazaCrecimiento\n" +
                     "Número de Lotes: $lotNumber\n" +
@@ -406,6 +406,7 @@ class MainActivity : ComponentActivity() {
                     "|QmaxHorario | K2  | 2.4    | $qMaxHorarioFormateado   | lts/s|\n" +
                     "|QminHorario  | K3  | 0.3    | $qMinHorarioFormateado      | lts/s|\n" +
                     "-------------------------------------------------------------------\n" +
+                    "Horas de aduccion 20 por defecto \n"+
                     "Volumen 1: $volumenUnoFormatted M3\n"+
                     "Volumen 2: $volumenDosFormatted M3\n"+
                     "Volumen Incendio: $volumenIncendio M3\n"+
@@ -431,7 +432,7 @@ class MainActivity : ComponentActivity() {
 
 
                 val pdfContent = "Departamento: \t $selection1\n" +
-                        "Municipio: \t\t\t\t\t\t $selection2\n" +
+                        "Municipio: \t\t\t\t\t $selection2\n" +
                         "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                         "Taza de Crecimiento: $tazaCrecimiento\n" +
                         "Número de Lotes: $lotNumber\n" +
@@ -449,6 +450,7 @@ class MainActivity : ComponentActivity() {
                         "|QmaxHorario | K2  | 2.4    | $qMaxHorarioFormateado   | lts/s|\n" +
                         "|QminHorario  | K3  | 0.3    | $qMinHorarioFormateado      | lts/s|\n" +
                         "-------------------------------------------------------------------\n" +
+                        "Horas de aduccion 20 por defecto \n"+
                         "Volumen 1: $volumenUnoFormatted M3\n"+
                         "Volumen 2: $volumenDosFormatted M3\n"+
                         "Volumen Incendio: $volumenIncendio M3\n"+
