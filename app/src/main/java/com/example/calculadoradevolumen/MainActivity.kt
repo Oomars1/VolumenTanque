@@ -75,7 +75,23 @@ class MainActivity : ComponentActivity() {
         clearButton = findViewById(R.id.clearButton)
 
         // Datos para el primer spinner
-        val options1 = arrayOf("Selecciona una opción", "Santa Ana", "Ahuachapan", "Sonsonate")
+        val options1 = arrayOf(
+            "Selecciona una opción",
+            "Ahuachapán",
+            "Cabañas",
+            "Chalatenango",
+            "Cuscatlán",
+            "La Libertad",
+            "La Paz",
+            "La Unión",
+            "Morazán",
+            "San Miguel",
+            "San Salvador",
+            "San Vicente",
+            "Santa Ana",
+            "Sonsonate",
+            "Usulután"
+        )
 
         // Adaptador para el primer spinner
         val adapter1 = ArrayAdapter(this, android.R.layout.simple_spinner_item, options1)
@@ -87,43 +103,41 @@ class MainActivity : ComponentActivity() {
         val options3 = arrayOf("Ahuachapan", "Atiquizaya", "Apaneca", "Concepcion Ataco", "El Refugio")
         val options4 = arrayOf("Nahuizalco", "Juayua", "Salcoatitan")
 
+        // Datos para los municipios de cada departamento
+        val municipiosMap = mapOf(
+            "Ahuachapán" to arrayOf("Selecciona una opción", "Ahuachapán", "Atiquizaya", "Apaneca", "Concepción de Ataco", "El Refugio", "Guaymango", "Jujutla", "San Francisco Menéndez", "San Lorenzo", "San Pedro Puxtla", "Tacuba", "Turín"),
+            "Cabañas" to arrayOf("Selecciona una opción", "Sensuntepeque", "Cinquera", "Dolores", "Guacotecti", "Ilobasco", "Jutiapa", "San Isidro", "Tejutepeque", "Victoria"),
+            "Chalatenango" to arrayOf("Selecciona una opción", "Chalatenango", "Agua Caliente", "Arcatao", "Azacualpa", "Cancasque", "Citalá", "Comapala", "Concepción Quezaltepeque", "Dulce Nombre de María", "El Carrizal", "El Paraíso", "La Laguna", "La Palma", "La Reina", "Las Vueltas", "Nueva Concepción", "Nueva Trinidad", "Ojos de Agua", "Potonico", "San Antonio de la Cruz", "San Antonio Los Ranchos", "San Fernando", "San Francisco Lempa", "San Francisco Morazán", "San Ignacio", "San Isidro Labrador", "San Luis del Carmen", "San Miguel de Mercedes", "San Rafael", "Santa Rita", "Tejutla"),
+            "Cuscatlán" to arrayOf("Selecciona una opción", "Cojutepeque", "Candelaria", "El Carmen", "El Rosario", "Monte San Juan", "Oratorio de Concepción", "San Bartolomé Perulapía", "San Cristóbal", "San José Guayabal", "San Pedro Perulapán", "San Rafael Cedros", "San Ramón", "Santa Cruz Analquito", "Santa Cruz Michapa", "Suchitoto", "Tenancingo"),
+            "La Libertad" to arrayOf("Selecciona una opción", "Santa Tecla", "Antiguo Cuscatlán", "Chiltiupán", "Ciudad Arce", "Colón", "Comasagua", "Huizúcar", "Jayaque", "Jicalapa", "La Libertad", "Nuevo Cuscatlán", "San Juan Opico", "Quezaltepeque", "Sacacoyo", "San José Villanueva", "San Matías", "San Pablo Tacachico", "Talnique", "Tamanique", "Teotepeque", "Tepecoyo", "Zaragoza"),
+            "La Paz" to arrayOf("Selecciona una opción", "Zacatecoluca", "Cuyultitán", "El Rosario", "Jerusalén", "Mercedes La Ceiba", "Olocuilta", "Paraíso de Osorio", "San Antonio Masahuat", "San Emigdio", "San Francisco Chinameca", "San Pedro Masahuat", "San Juan Nonualco", "San Juan Talpa", "San Juan Tepezontes", "San Luis La Herradura", "San Luis Talpa", "San Miguel Tepezontes", "San Pedro Nonualco", "San Rafael Obrajuelo", "Santa María Ostuma", "Santiago Nonualco", "Tapalhuaca"),
+            "La Unión" to arrayOf("Selecciona una opción", "La Unión", "Anamorós", "Bolívar", "Concepción de Oriente", "Conchagua", "El Carmen", "El Sauce", "Intipucá", "Lislique", "Meanguera del Golfo", "Nueva Esparta", "Pasaquina", "Polorós", "San Alejo", "San José", "Santa Rosa de Lima", "Yayantique", "Yucuaiquín"),
+            "Morazán" to arrayOf("Selecciona una opción", "San Francisco Gotera", "Arambala", "Cacaopera", "Chilanga", "Corinto", "Delicias de Concepción", "El Divisadero", "El Rosario", "Gualococti", "Guatajiagua", "Joateca", "Jocoaitique", "Jocoro", "Lolotiquillo", "Meanguera", "Osicala", "Perquín", "San Carlos", "San Fernando", "San Isidro", "San Simón", "Sensembra", "Sociedad", "Torola", "Yamabal", "Yoloaiquín"),
+            "San Miguel" to arrayOf("Selecciona una opción", "San Miguel", "Carolina", "Chapeltique", "Chinameca", "Chirilagua", "Ciudad Barrios", "Comacarán", "El Tránsito", "Lolotique", "Moncagua", "Nueva Guadalupe", "Nuevo Edén de San Juan", "Quelepa", "San Antonio", "San Gerardo", "San Jorge", "San Luis de la Reina", "San Rafael Oriente", "Sesori", "Uluazapa"),
+            "San Salvador" to arrayOf("Selecciona una opción", "San Salvador", "Aguilares", "Apopa", "Ayutuxtepeque", "Cuscatancingo", "Delgado", "El Paisnal", "Guazapa", "Ilopango", "Mejicanos", "Nejapa", "Panchimalco", "Rosario de Mora", "San Marcos", "San Martín", "Santiago Texacuangos", "Santo Tomás", "Soyapango", "Tonacatepeque"),
+            "San Vicente" to arrayOf("Selecciona una opción", "San Vicente", "Apastepeque", "Guadalupe", "San Cayetano Istepeque", "San Esteban Catarina", "San Ildefonso", "San Lorenzo", "San Sebastián", "Santa Clara", "Santo Domingo", "Tecoluca", "Tepetitán", "Verapaz"),
+            "Santa Ana" to arrayOf("Selecciona una opción", "Santa Ana Centro", "Santa Ana Norte", "Santa Ana Este", "Santa Ana Oeste", "Metapán", "Chalchuapa", "Coatepeque", "El Congo", "Masahuat", "San Antonio Pajonal", "San Sebastián Salitrillo", "Santa Rosa Guachipilín", "Texistepeque"),
+            "Sonsonate" to arrayOf("Selecciona una opción", "Sonsonate", "Acajutla", "Armenia", "Caluco", "Cuisnahuat", "Izalco", "Juayúa", "Nahuizalco", "Nahulingo", "Salcoatitán", "San Antonio del Monte", "San Julián", "Santa Catarina Masahuat", "Santa Isabel Ishuatán", "Santo Domingo de Guzmán", "Sonzacate"),
+            "Usulután" to arrayOf("Selecciona una opción", "Usulután", "Alegría", "Berlín", "California", "Concepción Batres", "El Triunfo", "Ereguayquín", "Estanzuelas", "Jiquilisco", "Jucuapa", "Jucuarán", "Mercedes Umaña", "Nueva Granada", "Ozatlán", "Puerto El Triunfo", "San Agustín", "San Buenaventura", "San Dionisio", "San Francisco Javier", "Santa Elena", "Santa María", "Santiago de María", "Tecapán")
+        )
+
         // Configurar el listener para el primer spinner
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                when (position) {
-                    1 -> {
-                        // Habilitar el segundo spinner con opciones para "Santa Ana"
-                        val adapter2 = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, options2)
-                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        spinner2.adapter = adapter2
-                        spinner2.isEnabled = true
-                    }
-                    2 -> {
-                        // Habilitar el segundo spinner con opciones para "Ahuachapan"
-                        val adapter2 = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, options3)
-                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        spinner2.adapter = adapter2
-                        spinner2.isEnabled = true
-                    }
-                    3 -> {
-                        // Habilitar el segundo spinner con opciones para "Sonsonate"
-                        val adapter2 = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, options4)
-                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        spinner2.adapter = adapter2
-                        spinner2.isEnabled = true
-                    }
-                    else -> {
-                        // Deshabilitar el segundo spinner si no se selecciona una opción válida
-                        spinner2.isEnabled = false
-                    }
-                }
+                val departamentoSeleccionado = options1[position]
+                val municipios = municipiosMap[departamentoSeleccionado] ?: arrayOf("Selecciona una opción")
+
+                val adapter2 = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, municipios)
+                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner2.adapter = adapter2
+                spinner2.isEnabled = municipios.isNotEmpty()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // No hacer nada si no se selecciona nada
                 spinner2.isEnabled = false
             }
         }
+
 
         // Configuración de los RadioButton para sí o no con input adicional
         radioGroupYesNo = findViewById(R.id.radioGroupYesNo)
@@ -393,14 +407,6 @@ class MainActivity : ComponentActivity() {
             val dialog = builder.create()
             dialog.show()
 
-
-
-
-
-
-
-
-
         }
     }
 
@@ -448,10 +454,6 @@ class MainActivity : ComponentActivity() {
         }
     }
     }
-
-
-
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
