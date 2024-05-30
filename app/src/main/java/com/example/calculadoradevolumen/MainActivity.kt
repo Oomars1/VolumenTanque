@@ -101,9 +101,7 @@ class MainActivity : ComponentActivity() {
         spinner1.adapter = adapter1
 
         // Datos para el segundo spinner
-        val options2 = arrayOf("Santa Ana Centro", "Santa Ana Norte", "Santa Ana Este", "Santa Ana Oeste", "Metapan")
-        val options3 = arrayOf("Ahuachapan", "Atiquizaya", "Apaneca", "Concepcion Ataco", "El Refugio")
-        val options4 = arrayOf("Nahuizalco", "Juayua", "Salcoatitan")
+        
 
         // Datos para los municipios de cada departamento
         val municipiosMap = mapOf(
