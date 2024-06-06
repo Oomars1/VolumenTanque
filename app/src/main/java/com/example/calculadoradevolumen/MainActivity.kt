@@ -96,8 +96,8 @@ class MainActivity : ComponentActivity() {
         )
 
         // Adaptador para el primer spinner
-        val adapter1 = ArrayAdapter(this, android.R.layout.simple_spinner_item, options1)
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter1 = ArrayAdapter(this, R.layout.spinner_item, options1)
+        adapter1.setDropDownViewResource(R.layout.spinner_item)
         spinner1.adapter = adapter1
 
         // Datos para el segundo spinner
@@ -116,7 +116,7 @@ class MainActivity : ComponentActivity() {
             "San Miguel" to arrayOf("Selecciona una opción", "San Miguel", "Carolina", "Chapeltique", "Chinameca", "Chirilagua", "Ciudad Barrios", "Comacarán", "El Tránsito", "Lolotique", "Moncagua", "Nueva Guadalupe", "Nuevo Edén de San Juan", "Quelepa", "San Antonio", "San Gerardo", "San Jorge", "San Luis de la Reina", "San Rafael Oriente", "Sesori", "Uluazapa"),
             "San Salvador" to arrayOf("Selecciona una opción", "San Salvador", "Aguilares", "Apopa", "Ayutuxtepeque", "Cuscatancingo", "Delgado", "El Paisnal", "Guazapa", "Ilopango", "Mejicanos", "Nejapa", "Panchimalco", "Rosario de Mora", "San Marcos", "San Martín", "Santiago Texacuangos", "Santo Tomás", "Soyapango", "Tonacatepeque"),
             "San Vicente" to arrayOf("Selecciona una opción", "San Vicente", "Apastepeque", "Guadalupe", "San Cayetano Istepeque", "San Esteban Catarina", "San Ildefonso", "San Lorenzo", "San Sebastián", "Santa Clara", "Santo Domingo", "Tecoluca", "Tepetitán", "Verapaz"),
-            "Santa Ana" to arrayOf("Selecciona una opción",  "Metapán", "Chalchuapa", "Coatepeque", "El Congo", "Masahuat", "San Antonio Pajonal", "San Sebastián Salitrillo", "Santa Rosa Guachipilín", "Texistepeque"),
+            "Santa Ana" to arrayOf("Selecciona una opción", "Santa Ana", "Metapán", "Chalchuapa", "Coatepeque", "El Congo", "Masahuat", "San Antonio Pajonal", "San Sebastián Salitrillo", "Santa Rosa Guachipilín", "Texistepeque"),
             "Sonsonate" to arrayOf("Selecciona una opción", "Sonsonate", "Acajutla", "Armenia", "Caluco", "Cuisnahuat", "Izalco", "Juayúa", "Nahuizalco", "Nahulingo", "Salcoatitán", "San Antonio del Monte", "San Julián", "Santa Catarina Masahuat", "Santa Isabel Ishuatán", "Santo Domingo de Guzmán", "Sonzacate"),
             "Usulután" to arrayOf("Selecciona una opción", "Usulután", "Alegría", "Berlín", "California", "Concepción Batres", "El Triunfo", "Ereguayquín", "Estanzuelas", "Jiquilisco", "Jucuapa", "Jucuarán", "Mercedes Umaña", "Nueva Granada", "Ozatlán", "Puerto El Triunfo", "San Agustín", "San Buenaventura", "San Dionisio", "San Francisco Javier", "Santa Elena", "Santa María", "Santiago de María", "Tecapán")
         )
@@ -127,8 +127,8 @@ class MainActivity : ComponentActivity() {
                 val departamentoSeleccionado = options1[position]
                 val municipios = municipiosMap[departamentoSeleccionado] ?: arrayOf("Selecciona una opción")
 
-                val adapter2 = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, municipios)
-                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val adapter2 = ArrayAdapter(this@MainActivity, R.layout.spinner_item, municipios)
+                adapter2.setDropDownViewResource(R.layout.spinner_item)
                 spinner2.adapter = adapter2
                 spinner2.isEnabled = municipios.isNotEmpty()
             }
@@ -137,7 +137,6 @@ class MainActivity : ComponentActivity() {
                 spinner2.isEnabled = false
             }
         }
-
 
         // Configuración de los RadioButton para sí o no con input adicional
         radioGroupYesNo = findViewById(R.id.radioGroupYesNo)
