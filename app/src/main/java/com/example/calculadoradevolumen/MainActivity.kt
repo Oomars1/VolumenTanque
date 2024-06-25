@@ -341,9 +341,9 @@ class MainActivity : ComponentActivity() {
             var cedimento = 0.1
             var rebose = 0.4
             //volumen 1
-            var volumenUno: Double = (qMaxDiarioFormateado.toDouble()*horasDeAduccion * (resultado.toDouble())/1000)
+            var volumenUno: Double = (qMaxDiarioFormateado.toDouble()*horasDeAduccion * (3600/1000)*(resultado.toDouble())/1000)
             val volumenUnoFormatted = String.format("%.2f", volumenUno)
-            var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*resultado.toDouble())/1000 + cedimento + rebose
+            var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*(2)*(3600/1000)*resultado.toDouble())/1000 + cedimento + rebose
             val volumenDosFormatted = String.format("%.2f", volumenDos)
 
             //Volumen total
