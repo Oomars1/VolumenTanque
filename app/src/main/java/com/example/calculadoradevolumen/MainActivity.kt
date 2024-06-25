@@ -341,7 +341,7 @@ class MainActivity : ComponentActivity() {
             var cedimento = 0.1
             var rebose = 0.4
             //volumen 1
-            var volumenUno: Double = (qMaxDiarioFormateado.toDouble() * resultado.toDouble())/1000
+            var volumenUno: Double = (qMaxDiarioFormateado.toDouble()*horasDeAduccion * (resultado.toDouble())/1000)
             val volumenUnoFormatted = String.format("%.2f", volumenUno)
             var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*resultado.toDouble())/1000 + cedimento + rebose
             val volumenDosFormatted = String.format("%.2f", volumenDos)
@@ -409,10 +409,8 @@ class MainActivity : ComponentActivity() {
                     "Volumen 1: $volumenUnoFormatted M3\n"+
                     "Volumen 2: $volumenDosFormatted M3\n"+
                     "Volumen Incendio: $volumenIncendio M3\n"+
-                    "Volumen Total: $volumenTotal M3\n"+
-                    "Cilindro H: $resultadoHcilindro M3\n"+
-                    "Cilindro D: $resuldadoDcilindro M3\n"+
-                    "Volumen Total De Tanque: $resultadoFinal M3\n"
+                    "Volumen Total: $volumenTotal M3\n"
+
 
 
 
@@ -453,10 +451,8 @@ class MainActivity : ComponentActivity() {
                         "Volumen 1: $volumenUnoFormatted M3\n"+
                         "Volumen 2: $volumenDosFormatted M3\n"+
                         "Volumen Incendio: $volumenIncendio M3\n"+
-                        "Volumen Total: $volumenTotal M3\n"+
-                        "Cilindro H: $resultadoHcilindro M3\n"+
-                        "Cilindro D: $resuldadoDcilindro M3\n"+
-                        "Volumen Total De Tanque: $resultadoFinal M3\n"
+                        "Volumen Total: $volumenTotal M3\n"
+
 
 
                 textViewSelection.text = "$text\n\n$pdfContent"

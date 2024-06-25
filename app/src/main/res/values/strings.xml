@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tank Volume Calculator</string>
+    <string name="app_name"> Calculadora de Volumen  </string>
     <string name="hint_select_department">Seleccione el departamento</string>
     <string name="hint_select_municipality">Seleccione el municipio</string>
     <string name="la_zona_es_rural_o_urbana">La zona es rural o urbana?</string>
