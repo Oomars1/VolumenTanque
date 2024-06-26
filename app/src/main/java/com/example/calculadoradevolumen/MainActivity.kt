@@ -338,26 +338,28 @@ class MainActivity : ComponentActivity() {
             //horas de duracion
             var horasDeAduccion = 20.0
             var fijoDeFormula = 24.0
-            var cedimento = 0.1
-            var rebose = 0.4
+            var cedimento = 1.2
+            var rebose = 2.0
             //volumen 1
-            var volumenUno: Double = (qMaxDiarioFormateado.toDouble() * resultado.toDouble())/1000
+            var volumenUno: Double = (qMaxDiarioFormateado.toDouble() * horasDeAduccion.toDouble())* (3600/1000)
             val volumenUnoFormatted = String.format("%.2f", volumenUno)
-            var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*resultado.toDouble())/1000 + cedimento + rebose
+            //volumen 2
+            var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*cedimento*rebose*(3600/1000))
             val volumenDosFormatted = String.format("%.2f", volumenDos)
 
             //Volumen total
             var volumenIncendio = 90
+            var suma = 0.0
             // Evaluar la condición y calcular la suma correspondiente
-            val suma = if (volumenUno >= volumenDos) {
-                volumenUno + volumenIncendio
+            if (consumptionText == "220") {
+                suma = volumenUno + volumenDos + volumenIncendio
             } else {
-                volumenDos + volumenIncendio
+                suma = volumenUno + volumenDos
             }
 
             // Redondear al entero más cercano hacia arriba
             val volumenTotal = ceil(suma).toInt()
-
+            val volumenTotalFormatted = String.format("%.2f", volumenTotal)
             // Paso 1: Dividir I24 por PI
             val division = volumenTotal / PI
 
@@ -387,7 +389,7 @@ class MainActivity : ComponentActivity() {
             val resultadoFinal = ceil(resultadoTanque).toInt()
 
             val message = "Departamento: \t $selection1\n" +
-                    "Municipio: \t\t\t\t\t $selection2\n" +
+                    "Distrito: \t\t\t\t\t $selection2\n" +
                     "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                     "Taza de Crecimiento: $tazaCrecimiento\n" +
                     "Número de Lotes: $lotNumber\n" +
@@ -409,7 +411,7 @@ class MainActivity : ComponentActivity() {
                     "Volumen 1: $volumenUnoFormatted M3\n"+
                     "Volumen 2: $volumenDosFormatted M3\n"+
                     "Volumen Incendio: $volumenIncendio M3\n"+
-                    "Volumen Total: $volumenTotal M3\n"+
+                    "Volumen Total: $suma M3\n"+
                     "Cilindro H: $resultadoHcilindro M3\n"+
                     "Cilindro D: $resuldadoDcilindro M3\n"+
                     "Volumen Total De Tanque: $resultadoFinal M3\n"
@@ -431,7 +433,7 @@ class MainActivity : ComponentActivity() {
 
 
                 val pdfContent = "Departamento: \t $selection1\n" +
-                        "Municipio: \t\t\t\t\t $selection2\n" +
+                        "Distrito: \t\t\t\t\t $selection2\n" +
                         "Zona:\t\t\t ${radioButtonSelected.text} - Uso: $consumptionText\n" +
                         "Taza de Crecimiento: $tazaCrecimiento\n" +
                         "Número de Lotes: $lotNumber\n" +
@@ -453,7 +455,7 @@ class MainActivity : ComponentActivity() {
                         "Volumen 1: $volumenUnoFormatted M3\n"+
                         "Volumen 2: $volumenDosFormatted M3\n"+
                         "Volumen Incendio: $volumenIncendio M3\n"+
-                        "Volumen Total: $volumenTotal M3\n"+
+                        "Volumen Total: $suma M3\n"+
                         "Cilindro H: $resultadoHcilindro M3\n"+
                         "Cilindro D: $resuldadoDcilindro M3\n"+
                         "Volumen Total De Tanque: $resultadoFinal M3\n"
