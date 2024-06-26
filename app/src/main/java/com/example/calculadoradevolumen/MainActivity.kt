@@ -331,7 +331,8 @@ class MainActivity : ComponentActivity() {
             val qMaxDiarioFormateado = String.format("%.2f", qMaxDiario)
             var qMaxHorario = qMedioDiario * k2
             val qMaxHorarioFormateado = String.format("%.2f", qMaxHorario)
-            var qMinhorario = qMedioDiario * k3
+
+            var qMinhorario = qMedioDiario * k3 * 20
             val qMinHorarioFormateado = String.format("%.2f", qMinhorario)
             // Mostrar la información en el TextView solo funciona para ello
 
@@ -341,25 +342,37 @@ class MainActivity : ComponentActivity() {
             var cedimento = 1.2
             var rebose = 2.0
             //volumen 1
-            var volumenUno: Double = (qMaxDiarioFormateado.toDouble() * horasDeAduccion.toDouble())* (3600/1000)
+
+            var volumenUno: Double = (qMaxDiario.toDouble() * horasDeAduccion.toDouble())*(3.6)
             val volumenUnoFormatted = String.format("%.2f", volumenUno)
             //volumen 2
-            var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*cedimento*rebose*(3600/1000))
+            var volumenDos: Double = (qMaxDiario.toDouble() * (horasDeAduccion/fijoDeFormula)*cedimento*rebose*(3.6))
+
+           // var volumenUno: Double = (qMaxDiarioFormateado.toDouble()*horasDeAduccion * (3600/1000)*(resultado.toDouble())/1000)
+            //val volumenUnoFormatted = String.format("%.2f", volumenUno)
+            //var volumenDos: Double = (qMaxDiarioFormateado.toDouble() * (horasDeAduccion/fijoDeFormula)*(2)*(3600/1000)*resultado.toDouble())/1000 + cedimento + rebose
+
             val volumenDosFormatted = String.format("%.2f", volumenDos)
 
-            //Volumen total
+            //Volumen total prueba
             var volumenIncendio = 90
             var suma = 0.0
             // Evaluar la condición y calcular la suma correspondiente
-            if (consumptionText == "220") {
+             if (consumptionText == "220") {
                 suma = volumenUno + volumenDos + volumenIncendio
             } else {
                 suma = volumenUno + volumenDos
             }
+            //ok abajo
+            //val suma = if (volumenUno >= volumenDos) {
+              //  volumenUno + volumenIncendio
+            //} else {
+                //volumenDos + volumenIncendio
+            //}
 
             // Redondear al entero más cercano hacia arriba
             val volumenTotal = ceil(suma).toInt()
-            val volumenTotalFormatted = String.format("%.2f", volumenTotal)
+            //val volumenTotalFormatted = String.format("%.2f", volumenTotal)
             // Paso 1: Dividir I24 por PI
             val division = volumenTotal / PI
 
@@ -411,10 +424,10 @@ class MainActivity : ComponentActivity() {
                     "Volumen 1: $volumenUnoFormatted M3\n"+
                     "Volumen 2: $volumenDosFormatted M3\n"+
                     "Volumen Incendio: $volumenIncendio M3\n"+
-                    "Volumen Total: $suma M3\n"+
-                    "Cilindro H: $resultadoHcilindro M3\n"+
-                    "Cilindro D: $resuldadoDcilindro M3\n"+
-                    "Volumen Total De Tanque: $resultadoFinal M3\n"
+
+                    "Volumen Total: $volumenTotal M3\n"
+
+
 
 
 
@@ -455,10 +468,10 @@ class MainActivity : ComponentActivity() {
                         "Volumen 1: $volumenUnoFormatted M3\n"+
                         "Volumen 2: $volumenDosFormatted M3\n"+
                         "Volumen Incendio: $volumenIncendio M3\n"+
-                        "Volumen Total: $suma M3\n"+
-                        "Cilindro H: $resultadoHcilindro M3\n"+
-                        "Cilindro D: $resuldadoDcilindro M3\n"+
-                        "Volumen Total De Tanque: $resultadoFinal M3\n"
+
+                        "Volumen Total: $volumenTotal M3\n"
+
+
 
 
                 textViewSelection.text = "$text\n\n$pdfContent"

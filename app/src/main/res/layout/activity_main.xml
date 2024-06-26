@@ -11,8 +11,9 @@
 
     <!--este es el boton de imprimir ojo ira hasta el final-->
     <ScrollView
-        android:layout_width="380dp"
-        android:layout_height="700dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:scrollbarSize="0dp">
 
         <LinearLayout
@@ -35,7 +36,8 @@
                 android:textAllCaps="true"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#000000"
+                android:background="#FFFFFF"/>
 
             <!-- TextView para "Seleccionar departamento" -->
             <TextView
@@ -72,7 +74,7 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:gravity=""
                 android:paddingBottom="8dp"
-                android:text="@string/hint_select_municipality"
+                android:text="Seleccione el Distrito"
                 android:textSize="15sp"
                 android:textColor="#FFFFFF"/>
 
@@ -136,7 +138,12 @@
                 android:gravity=""
                 android:text="Ingrese la tasa de crecimiento poblacional"
                 android:textSize="15sp"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:background="#000000"  />
 
             <RadioGroup
                 android:id="@+id/radioGroupYesNo"
@@ -173,7 +180,10 @@
                 android:layout_marginTop="16dp"
                 android:hint="Ingrese la taza"
                 android:visibility="gone"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#000000"
+                android:background="#FFFFFF"
+                android:textStyle="bold"
+                />
 
             <!--lotes-->
 
@@ -198,7 +208,9 @@
                 android:layout_width="353dp"
                 android:layout_height="wrap_content"
                 android:hint=""
-                android:textColor="#FFFFFF"/>
+                android:textColor="#000000"
+                android:background="#FFFFFF"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/personasLote"
@@ -245,7 +257,9 @@
                 android:layout_marginTop="16dp"
                 android:hint="Cuantas personas desea asignar"
                 android:visibility="gone"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#000000"
+                android:background="#FFFFFF"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/periodoDisenoTextView"
@@ -293,7 +307,9 @@
                 android:layout_marginTop="16dp"
                 android:hint="Ingrese el período de diseño"
                 android:visibility="gone"
-                android:textColor="#FFFFFF"/>
+                android:textColor=" #FFFFFF"
+                android:background="#000000"
+                android:textStyle="bold"/>
 
             <!-- Encabezado de la tabla comienza
 
